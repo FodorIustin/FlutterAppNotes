@@ -3,6 +3,7 @@ import 'product_model.dart';
 import '../common/strings.dart' as strings;
 import 'category_products_screen.dart';
 
+// Define CategoriesTab widget as a StatefulWidget
 class CategoriesTab extends StatefulWidget {
   final Map<String, List<Product>> categories;
 
@@ -12,8 +13,12 @@ class CategoriesTab extends StatefulWidget {
   _CategoriesTabState createState() => _CategoriesTabState();
 }
 
+// Define the state for CategoriesTab widget
 class _CategoriesTabState extends State<CategoriesTab> {
+  // Controller for managing the category name text field
   TextEditingController categoryNameController = TextEditingController();
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +27,13 @@ class _CategoriesTabState extends State<CategoriesTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Text field for entering a new category name
           TextField(
             controller: categoryNameController,
             decoration: const InputDecoration(labelText: 'Category Name'),
           ),
           const SizedBox(height: 16.0),
+          // Button to add a new category
           ElevatedButton(
             onPressed: () {
               _addCategory();
@@ -34,6 +41,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
             child: const Text('Add Category'),
           ),
           const SizedBox(height: 16.0),
+          // Display a list of categories with delete functionality
           Expanded(
             child: ListView.builder(
               itemCount: widget.categories.keys.length,
@@ -43,6 +51,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                   child: ListTile(
                     title: Text(category),
                     onTap: () {
+                      // Navigate to the CategoryProductsScreen for the selected category
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -69,6 +78,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
     );
   }
 
+  // Function to add a new category
   void _addCategory() {
     final categoryName = categoryNameController.text.trim();
     if (categoryName.isNotEmpty) {
@@ -79,6 +89,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
     }
   }
 
+  // Function to prompt the user for category deletion confirmation
   void _deleteCategory(String category) {
     showDialog(
       context: context,
@@ -106,9 +117,11 @@ class _CategoriesTabState extends State<CategoriesTab> {
     );
   }
 
+  // Function to confirm and perform the deletion of a category
   void _confirmDeleteCategory(String category) {
     setState(() {
       widget.categories.remove(category);
+      
     });
   }
 }

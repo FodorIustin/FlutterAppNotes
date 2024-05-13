@@ -1,3 +1,3 @@
-const String appTitle = 'First App';
-const String homeScrrenTitle = 'First Screen';
-const String addProductDialogTitle = 'Adăugare Produs';
+const String appTitle = 'Notes List';
+const String homeScrrenTitle = 'List';
+const String addProductDialogTitle = 'Add product';

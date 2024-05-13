@@ -22,7 +22,7 @@ class FirstApp extends StatelessWidget {
         // Customize the dark theme
         colorScheme: ThemeData.dark().colorScheme.copyWith(
           primary: Colors.black, // Set primary color to black
-          secondary: Colors.red[900], // Set secondary color to dark red
+        //  secondary: Colors.red[900], 
         ),
         scaffoldBackgroundColor: const Color(0xFF0D0D0D), // Set scaffold background color
         cardColor: const Color(0xFF1A1A1A), // Set card background color

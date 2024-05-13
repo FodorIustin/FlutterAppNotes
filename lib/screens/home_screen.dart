@@ -4,6 +4,7 @@ import 'categories_tab.dart';
 import 'category_products_screen.dart';
 import 'product_model.dart';
 
+// Define the main HomeScreen class as a StatefulWidget
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -12,10 +13,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // Initialize lists and keys
   List<Product> products = [];
   Map<String, List<Product>> categories = {};
   final GlobalKey<ShoppingListTabState> shoppingListTabKey = GlobalKey();
 
+  // Build the main UI using DefaultTabController
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -32,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: TabBarView(
           children: [
+            // Display the Shopping List Tab
             ShoppingListTab(
               key: shoppingListTabKey,
               products: products,
@@ -39,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 _deleteProduct(product);
               },
             ),
+            // Display the Categories Tab
             CategoriesTab(categories: categories),
           ],
         ),
@@ -52,10 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Show a dialog for adding a new product
   void _showAddProductDialog(BuildContext context) async {
     String productName = '';
     int productQuantity = 1;
-    String selectedCategory = categories.keys.first; // Choose a default category
+    String selectedCategory = categories.keys.first;
 
     await showDialog(
       context: context,
@@ -67,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               content: SingleChildScrollView(
                 child: Column(
                   children: [
+                    // Text field for product name
                     TextField(
                       decoration: const InputDecoration(labelText: 'Product Name'),
                       onChanged: (value) {
@@ -75,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         });
                       },
                     ),
+                    // Text field for product quantity
                     TextField(
                       decoration: const InputDecoration(labelText: 'Quantity'),
                       keyboardType: TextInputType.number,
@@ -84,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         });
                       },
                     ),
+                    // Dropdown for selecting product category
                     DropdownButton<String>(
                       value: selectedCategory,
                       onChanged: (value) {
@@ -102,12 +111,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               actions: [
+                // Cancel button
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   child: const Text('Cancel'),
                 ),
+                // Add button
                 TextButton(
                   onPressed: () async {
                     final product = Product(
@@ -122,7 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       products.add(product);
                     });
 
-                    // Trigger a rebuild of the ShoppingListTab widget
                     shoppingListTabKey.currentState?.updateProducts();
 
                     Navigator.pop(context);
@@ -137,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // Delete a product from the list
   void _deleteProduct(Product product) {
     setState(() {
       products.remove(product);
@@ -147,6 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+// Define ShoppingListTab widget
 class ShoppingListTab extends StatefulWidget {
   final List<Product> products;
   final Function(Product) onDelete;
@@ -158,6 +170,7 @@ class ShoppingListTab extends StatefulWidget {
   ShoppingListTabState createState() => ShoppingListTabState();
 }
 
+// Define the state for ShoppingListTab widget
 class ShoppingListTabState extends State<ShoppingListTab> {
   @override
   Widget build(BuildContext context) {
@@ -183,10 +196,12 @@ class ShoppingListTabState extends State<ShoppingListTab> {
     );
   }
 
+  // Update the widget to reflect changes in the products list
   void updateProducts() {
     setState(() {});
   }
 
+  // Delete a product from the list
   void _deleteProduct(Product product) {
     setState(() {
       widget.products.remove(product);
